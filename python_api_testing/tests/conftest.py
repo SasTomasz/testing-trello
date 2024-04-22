@@ -1,8 +1,10 @@
 from http import HTTPStatus
 
 import pytest
-from python_api_testing.src import base_workflow
 from dotenv import dotenv_values
+
+from python_api_testing.src import base_workflow
+from python_api_testing.src.main_workflow import Board
 
 env = dotenv_values("../../.env")
 api_key = env.get("TRELLO_API_KEY")
@@ -11,13 +13,9 @@ api_token = env.get("TRELLO_API_TOKEN")
 
 @pytest.fixture()
 def create_a_new_board():
-    board_name = "automate-api-tests"
-    create_response = base_workflow.create_a_new_board(board_name, api_key, api_token)
-    yield create_response
-    board_id = create_response.json()["id"]
-    delete_response = base_workflow.delete_a_board(board_id, api_key, api_token)
-    if delete_response.status_code == HTTPStatus.OK:
-        print("Board deleted after test")
+    board = Board("automate-api-tests", api_key, api_token)
+    yield board.get_last_response()
+    board.delete_a_board()
 
 
 @pytest.fixture()
