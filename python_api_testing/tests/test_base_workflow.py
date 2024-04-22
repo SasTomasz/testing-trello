@@ -19,6 +19,6 @@ def test_adding_new_card_should_return_status_200(create_a_new_board, get_info_a
     board_id = board_response.json()["id"]
     first_list_id = get_info_about_lists_on_the_board(board_id).json()[0]["id"]
 
-    function_result = base_workflow.create_new_card(card_name, first_list_id, api_key, api_token)
+    function_result = base_workflow.create_a_new_card(card_name, first_list_id, api_key, api_token)
     assert function_result.status_code == 200
 
