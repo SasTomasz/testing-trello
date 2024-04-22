@@ -12,7 +12,7 @@ api_token = env.get("TRELLO_API_TOKEN")
 @pytest.fixture()
 def create_a_new_board():
     board_name = "automate-api-tests"
-    create_response = base_workflow.create_new_board(board_name, api_key, api_token)
+    create_response = base_workflow.create_a_new_board(board_name, api_key, api_token)
     yield create_response
     board_id = create_response.json()["id"]
     delete_response = base_workflow.delete_a_board(board_id, api_key, api_token)

@@ -4,7 +4,7 @@ import requests
 from dotenv import dotenv_values
 
 
-def create_new_card(card_name: str, id_list: str, api_key: str, api_token: str) -> requests.Response:
+def create_a_new_card(card_name: str, id_list: str, api_key: str, api_token: str) -> requests.Response:
     url = "https://api.trello.com/1/cards"
 
     headers = {
@@ -28,7 +28,7 @@ def create_new_card(card_name: str, id_list: str, api_key: str, api_token: str) 
     return response
 
 
-def get_board_info(api_key: str, api_token: str) -> requests.Response:
+def get_info_about_all_available_boards(api_key: str, api_token: str) -> requests.Response:
     url = 'https://api.trello.com/1/members/me/boards'
 
     headers = {
@@ -50,7 +50,7 @@ def get_board_info(api_key: str, api_token: str) -> requests.Response:
     return response
 
 
-def create_new_list(name: str, board_id: str, api_key: str, api_token: str) -> requests.Response:
+def create_a_new_list(name: str, board_id: str, api_key: str, api_token: str) -> requests.Response:
 
     url = "https://api.trello.com/1/lists"
 
@@ -70,7 +70,7 @@ def create_new_list(name: str, board_id: str, api_key: str, api_token: str) -> r
     return response
 
 
-def create_new_board(name: str, api_key: str, api_token: str) -> requests.Response:
+def create_a_new_board(name: str, api_key: str, api_token: str) -> requests.Response:
     url = "https://api.trello.com/1/boards/"
 
     query = {
@@ -132,7 +132,7 @@ if __name__ == '__main__':
     trello_api_key = env_variables.get("TRELLO_API_KEY")
     trello_api_token = env_variables.get("TRELLO_API_TOKEN")
 
-    create_board_response = create_new_board("my-test-board", trello_api_key, trello_api_token)
+    create_board_response = create_a_new_board("my-test-board", trello_api_key, trello_api_token)
     created_board_id = create_board_response.json()["id"]
     lists_on_board_info = get_info_about_lists_on_board(created_board_id, trello_api_key, trello_api_token)
     print(lists_on_board_info.content)
