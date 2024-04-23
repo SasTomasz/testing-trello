@@ -14,8 +14,10 @@ def test_create_new_board_should_return_status_200(create_a_new_board):
     assert assert_that(board_response.status_code).is_equal_to(HTTPStatus.OK)
 
 
-def test_new_board_should_have_a_correct_name():
-    pass
+def test_new_board_should_have_a_correct_name(create_a_new_board):
+    expected_board_name = "my-new-board"
+    board = create_a_new_board(expected_board_name)
+    assert assert_that(board.board_name).is_equal_to(expected_board_name)
 
 
 def test_new_board_should_return_a_correct_json():
