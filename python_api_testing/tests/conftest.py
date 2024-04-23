@@ -10,6 +10,8 @@ api_token = env.get("TRELLO_API_TOKEN")
 
 @pytest.fixture()
 def create_a_new_board():
-    board = Board("automate-api-tests", api_key, api_token)
-    yield board
-    board.delete_a_board()
+    def _create_a_new_board(board_name: str = "automate-api-tests"):
+        board = Board(board_name, api_key, api_token)
+        return board
+    yield _create_a_new_board()
+    _create_a_new_board().delete_a_board()
