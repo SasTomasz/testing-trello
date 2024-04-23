@@ -82,8 +82,8 @@ class List:
 class Board:
     def __init__(self, board_name: str, api_key: str, api_token: str) -> None:
         self.board_name = board_name
-        self.api_key = api_key
-        self.api_token = api_token
+        self.__api_key = api_key
+        self.__api_token = api_token
         self.board_id = None
         self.board_body = None
         self.__create_a_new_board()
@@ -93,8 +93,8 @@ class Board:
 
         query = {
             'name': self.board_name,
-            'key': self.api_key,
-            'token': self.api_token
+            'key': self.__api_key,
+            'token': self.__api_token
         }
 
         response = requests.request(
@@ -102,16 +102,16 @@ class Board:
             url,
             params=query
         )
-        self.set_a_board_id(response.json()["id"])
-        self.set_a_new_board_body(response)
+        self.board_id = response.json()["id"]
+        self.board_body = response
         return response
 
     def delete_a_board(self) -> None:
         url = f"https://api.trello.com/1/boards/{self.board_id}"
 
         query = {
-            'key': self.api_key,
-            'token': self.api_token
+            'key': self.__api_key,
+            'token': self.__api_token
         }
 
         response = requests.request(
@@ -120,7 +120,7 @@ class Board:
             params=query
         )
 
-        self.set_a_new_board_body(response)
+        self.board_body = response
 
         if response.status_code == HTTPStatus.OK:
             print("Board successfully deleted")
@@ -135,8 +135,8 @@ class Board:
         }
 
         query = {
-            'key': self.api_key,
-            'token': self.api_token
+            'key': self.__api_key,
+            'token': self.__api_token
         }
 
         response = requests.request(
@@ -155,8 +155,8 @@ class Board:
         query = {
             'name': list_name,
             'idBoard': self.board_id,
-            'key': self.api_key,
-            'token': self.api_token
+            'key': self.__api_key,
+            'token': self.__api_token
         }
 
         response = requests.request(
@@ -166,22 +166,10 @@ class Board:
         )
         if response.status_code == HTTPStatus.OK:
             list_id = response.json()["id"]
-            list_on_board = List(list_name, list_id, self.board_id, self.api_key, self.api_token)
+            list_on_board = List(list_name, list_id, self.board_id, self.__api_key, self.__api_token)
             return list_on_board
         else:
             raise ConnectionError(f"Error when creating a list occurred. Http status code: {response.status_code}")
-
-    def set_a_board_id(self, board_id: int) -> None:
-        self.board_id = board_id
-
-    def set_a_new_board_body(self, response: requests.Response) -> None:
-        self.board_body = response
-
-    def get_a_board_body(self) -> requests.Response:
-        return self.board_body
-
-    def get_a_board_id(self) -> int:
-        return self.board_id
 
 
 class Card:
