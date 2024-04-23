@@ -81,11 +81,14 @@ class List:
 
 class Board:
     def __init__(self, board_name: str, api_key: str, api_token: str) -> None:
-        self.board_name = board_name
-        self.__api_key = api_key
-        self.__api_token = api_token
-        self.board_id = None
-        self.board_body = None
+        self.board_name: str = board_name
+        self.__api_key: str = api_key
+        self.__api_token: str = api_token
+
+        # Initialize in __create_a_new_board method
+        self.board_id: str = None
+        self.board_body: requests.Response = None
+
         self.__create_a_new_board()
 
     def __create_a_new_board(self) -> requests.Response:
