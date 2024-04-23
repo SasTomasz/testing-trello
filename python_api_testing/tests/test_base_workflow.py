@@ -13,6 +13,14 @@ def test_create_new_board_should_return_status_200(create_a_new_board):
     assert board_response.status_code == HTTPStatus.OK
 
 
+def test_new_board_should_have_a_correct_name():
+    pass
+
+
+def test_new_board_should_return_a_correct_json():
+    pass
+
+
 def test_adding_new_card_should_return_status_200(create_a_new_board):
     card_name = "automate_api_test_card"
     board = create_a_new_board
