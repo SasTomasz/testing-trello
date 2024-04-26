@@ -1,10 +1,12 @@
 from http import HTTPStatus
+import importlib.resources
 
 from dotenv import dotenv_values
 from assertpy import assert_that
 
 from python_api_testing.src.models.board_model import board_main_keys
 
+root_path = str(importlib.resources.files("python_api_testing"))
 env = dotenv_values("../../.env")
 api_key = env.get("TRELLO_API_KEY")
 api_token = env.get("TRELLO_API_TOKEN")

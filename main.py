@@ -1,5 +1,6 @@
-from python_api_testing.src.main_workflow import Board, List
 from dotenv import dotenv_values
+
+from python_api_testing.src.main_workflow import Board
 
 if __name__ == '__main__':
     env_variables = dotenv_values("./.env")

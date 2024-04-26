@@ -86,10 +86,8 @@ class Board:
         self.__api_token: str = api_token
 
         # Initialize in __create_a_new_board method
-        self.board_id: str = None
-        self.board_body: requests.Response = None
-
-        self.__create_a_new_board()
+        self.board_body: requests.Response = self.__create_a_new_board()
+        self.board_id: str = self.board_body.json()["id"]
 
     def __create_a_new_board(self) -> requests.Response:
         url = "https://api.trello.com/1/boards/"
