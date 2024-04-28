@@ -1,9 +1,12 @@
+import importlib.resources
+
 import pytest
 from dotenv import dotenv_values
 
 from python_api_testing.src.main_workflow import Board
 
-env = dotenv_values("../../.env")
+env_path = str(importlib.resources.files("python_api_testing")).replace("python_api_testing", ".env")
+env = dotenv_values(env_path)
 api_key = env.get("TRELLO_API_KEY")
 api_token = env.get("TRELLO_API_TOKEN")
 
