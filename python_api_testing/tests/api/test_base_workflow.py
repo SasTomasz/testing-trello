@@ -11,6 +11,22 @@ def test_create_new_board_should_return_status_200(create_a_new_board):
     assert assert_that(board_response.status_code).is_equal_to(HTTPStatus.OK)
 
 
+def test_delete_board_should_return_status_200():
+    pass
+
+
+def test_get_info_about_list_on_the_board_should_return_status_200():
+    pass
+
+
+def test_create_new_list_on_the_board_should_return_status_200():
+    pass
+
+
+def test_create_new_list_on_the_board_should_return_correct_keys():
+    pass
+
+
 def test_new_board_should_have_a_correct_name(create_a_new_board):
     expected_board_name = "my-new-board"
     board = create_a_new_board(expected_board_name)
