@@ -33,13 +33,13 @@ def test_create_new_list_on_the_board_should_return_correct_keys():
 def test_new_board_should_have_a_correct_name(create_a_new_board):
     expected_board_name = "my-new-board"
     board = create_a_new_board(expected_board_name)
-    assert assert_that(board.board_name).is_equal_to(expected_board_name)
+    assert_that(board.board_name).is_equal_to(expected_board_name)
 
 
 def test_new_board_should_return_a_correct_keys(create_a_new_board):
     board = create_a_new_board()
     board_response = board.board_body
-    assert assert_that(board_response.json()).contains_key(*board_main_keys)
+    assert_that(board_response.json()).contains_key(*board_main_keys)
 
 
 def test_adding_new_card_should_return_status_200(create_a_new_board):
@@ -48,5 +48,5 @@ def test_adding_new_card_should_return_status_200(create_a_new_board):
     first_list_id = board.board_id
 
     card_response = board.create_a_new_card(card_name, first_list_id)
-    assert assert_that(card_response.status_code).is_equal_to(200)
+    assert_that(card_response.status_code).is_equal_to(200)
 
