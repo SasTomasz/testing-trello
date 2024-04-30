@@ -8,11 +8,14 @@ from src.models.board_model import board_main_keys
 def test_create_new_board_should_return_status_200(create_a_new_board):
     board = create_a_new_board()
     board_response = board.board_body
-    assert assert_that(board_response.status_code).is_equal_to(HTTPStatus.OK)
+    assert_that(board_response.status_code).is_equal_to(HTTPStatus.OK)
 
 
-def test_delete_board_should_return_status_200():
-    assert False
+def test_delete_board_should_return_status_200(create_a_new_board):
+    board = create_a_new_board()
+    board.delete_a_board()
+    board_response_after_delete = board.board_body
+    assert_that(board_response_after_delete.status_code).is_equal_to(HTTPStatus.OK)
 
 
 def test_get_info_about_list_on_the_board_should_return_status_200():
