@@ -120,7 +120,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
+src/testing_trello/.env
 .venv
 env/
 venv/

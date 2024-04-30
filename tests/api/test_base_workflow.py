@@ -2,7 +2,7 @@ from http import HTTPStatus
 
 from assertpy import assert_that
 
-from python_api_testing.src.models.board_model import board_main_keys
+from src.models.board_model import board_main_keys
 
 
 def test_create_new_board_should_return_status_200(create_a_new_board):
@@ -12,19 +12,19 @@ def test_create_new_board_should_return_status_200(create_a_new_board):
 
 
 def test_delete_board_should_return_status_200():
-    pass
+    assert False
 
 
 def test_get_info_about_list_on_the_board_should_return_status_200():
-    pass
+    assert False
 
 
 def test_create_new_list_on_the_board_should_return_status_200():
-    pass
+    assert False
 
 
 def test_create_new_list_on_the_board_should_return_correct_keys():
-    pass
+    assert False
 
 
 def test_new_board_should_have_a_correct_name(create_a_new_board):
