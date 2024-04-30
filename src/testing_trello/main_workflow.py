@@ -88,6 +88,7 @@ class Board:
         # Initialize in __create_a_new_board method
         self.board_body: requests.Response = self.__create_a_new_board()
         self.board_id: str = self.board_body.json()["id"]
+        self.is_deleted = False
 
     def __create_a_new_board(self) -> requests.Response:
         url = "https://api.trello.com/1/boards/"
@@ -108,6 +109,10 @@ class Board:
         return response
 
     def delete_a_board(self) -> None:
+        if self.is_deleted:
+            print("The board has already been deleted")
+            return None
+
         url = f"https://api.trello.com/1/boards/{self.board_id}"
 
         query = {
@@ -124,9 +129,10 @@ class Board:
         self.board_body = response
 
         if response.status_code == HTTPStatus.OK:
-            print("Board successfully deleted")
+            self.is_deleted = True
+            print("The board has been deleted")
         else:
-            print("Board was not deleted")
+            print("The board has not been deleted")
 
     def get_info_about_lists_on_board(self) -> requests.Response:
         url = f"https://api.trello.com/1/boards/{self.board_id}/lists"
