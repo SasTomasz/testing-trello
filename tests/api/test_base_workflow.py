@@ -18,8 +18,10 @@ def test_delete_board_should_return_status_200(create_a_new_board):
     assert_that(board_response_after_delete.status_code).is_equal_to(HTTPStatus.OK)
 
 
-def test_get_info_about_list_on_the_board_should_return_status_200():
-    assert False
+def test_get_info_about_list_on_the_board_should_return_status_200(create_a_new_board):
+    board = create_a_new_board()
+    response = board.get_info_about_lists_on_board()
+    assert_that(response.status_code).is_equal_to(HTTPStatus.OK)
 
 
 def test_create_new_list_on_the_board_should_return_status_200():
