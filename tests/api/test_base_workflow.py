@@ -31,8 +31,13 @@ def test_create_new_list_on_the_board_should_return_status_200(create_a_new_boar
     assert_that(list_data.status_code).is_equal_to(HTTPStatus.OK)
 
 
-def test_list_created_on_a_board_should_has_correct_name():
-    pass
+def test_list_created_on_a_board_should_has_correct_name(create_a_new_board):
+    board = create_a_new_board()
+    expected_name = "new_test_list"
+    created_list = board.create_a_new_list_on_board(expected_name)
+    list_data = created_list.get_list_data()
+    json_list_data = list_data.json()
+    assert_that(json_list_data["name"]).is_equal_to(expected_name)
 
 
 def test_create_new_list_on_the_board_should_return_correct_keys():
