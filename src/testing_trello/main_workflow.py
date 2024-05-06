@@ -106,7 +106,8 @@ class Board:
         )
         self.board_id = response.json()["id"]
         self.board_body = response
-        return response
+        if self.validate_response(response):
+            return response
 
     def delete_a_board(self) -> None:
         if self.is_deleted:
@@ -128,11 +129,9 @@ class Board:
 
         self.board_body = response
 
-        if response.status_code == HTTPStatus.OK:
+        if self.validate_response(response):
             self.is_deleted = True
             print("The board has been deleted")
-        else:
-            print("The board has not been deleted")
 
     def get_info_about_lists_on_board(self) -> requests.Response:
         url = f"https://api.trello.com/1/boards/{self.board_id}/lists"
@@ -153,7 +152,8 @@ class Board:
             params=query
         )
 
-        return response
+        if self.validate_response(response):
+            return response
 
     def create_a_new_list_on_board(self, list_name: str) -> List:
 
@@ -171,15 +171,18 @@ class Board:
             url,
             params=query
         )
-        if response.status_code == HTTPStatus.OK:
-            list_id = response.json()["id"]
-            list_on_board = List(list_name, list_id, self.board_id, self.__api_key, self.__api_token)
-            return list_on_board
-        else:
-            raise ConnectionError(f"Error when creating a list occurred. Http status code: {response.status_code}")
+        if self.validate_response(response):
+            response_json = response.json()
+            new_list = List(list_name, response_json["id"], self.board_id, self.__api_key, self.__api_token)
+            return new_list
 
-    def check_response_status_code(self, response):
-        pass  # TODO: Implement this method and use it in every method with response
+    @staticmethod
+    def validate_response(response: requests.Response) -> bool | ConnectionError:
+        if response.status_code == HTTPStatus.OK:
+            return True
+        else:
+            raise ConnectionError(f"Response status code is {response.status_code} instead of 200")
+
 
 class Card:
     def __init__(self, card_name: str, list_id: str, api_key: str, api_token: str) -> None:
