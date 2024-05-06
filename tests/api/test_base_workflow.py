@@ -24,8 +24,15 @@ def test_get_info_about_list_on_the_board_should_return_status_200(create_a_new_
     assert_that(response.status_code).is_equal_to(HTTPStatus.OK)
 
 
-def test_create_new_list_on_the_board_should_return_status_200():
-    assert False
+def test_create_new_list_on_the_board_should_return_status_200(create_a_new_board):
+    board = create_a_new_board()
+    created_list = board.create_a_new_list_on_board("new_test_list")
+    list_data = created_list.get_list_data()
+    assert list_data.status_code == HTTPStatus.OK
+
+
+def test_list_created_on_a_board_should_has_correct_name():
+    pass
 
 
 def test_create_new_list_on_the_board_should_return_correct_keys():

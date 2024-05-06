@@ -178,6 +178,8 @@ class Board:
         else:
             raise ConnectionError(f"Error when creating a list occurred. Http status code: {response.status_code}")
 
+    def check_response_status_code(self, response):
+        pass  # TODO: Implement this method and use it in every method with response
 
 class Card:
     def __init__(self, card_name: str, list_id: str, api_key: str, api_token: str) -> None:
